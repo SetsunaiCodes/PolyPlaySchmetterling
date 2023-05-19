@@ -261,6 +261,11 @@
 
 
         <script>
+            var screenWidth = screen.width;
+            var screenHeight = screen.height;
+            if(screenWidth < 450 && screenHeight < 900){
+              window.location.href = "mobileview.html";
+            }
             //Erster Initialisierungsbereich
             let startbtn = document.getElementById('startbtn');
             let gameboard = document.getElementById('gameboard');

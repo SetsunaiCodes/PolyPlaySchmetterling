@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PolyPlay: Schmetterlinge</title>
+</head>
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+    body{
+        margin: 0;
+        padding: 0;
+        background-color: black;    
+    }
+    .screenarea{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .gameboard{
+        margin-top: 10px;
+        height: 450px;
+        width: 370px;
+        background-image: url(img/StarSky.gif);
+    }
+    .controlarea{
+        background-color: grey;
+        width: 100%;
+        height: 41vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .dataarea{
+        color: white;
+        background-color: black;
+        width: 100%;
+        height: 5vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .dataarea p{
+        font-family: "VT323", monospace;
+        font-size: 22px;
+        margin: 0 30px;
+    }
+    .arrows{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .arrowup{
+        height: 75px;
+        width: 75px;
+        background-image: url(imgmobile/Pfeiltasteoben.jpg);
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    .arrowdown{
+        height: 75px;
+        width: 75px;
+        background-image: url(imgmobile/Pfeiltasteunten.jpg);
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    .arrowleft{
+        margin-right: 36px;
+        height: 75px;
+        width: 75px;
+        background-image: url(imgmobile/Pfeiltastelinks.jpg);
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    .arrowright{
+        margin-left: 36px;
+        height: 75px;
+        width: 75px;
+        background-image: url(imgmobile/Pfeiltasterechts.jpg);
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    .logo{
+        height: 150px;
+        width: 150px;
+        background-image: url(img/PolyPlayLogorework.png);
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    .beforegame{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .gameboard input{
+        font-family: "VT323", monospace;
+        font-size: 40px;
+        height: 40px;
+        width: 250px;
+        padding-left: 20px;
+        color: black;
+        border: 4px solid black;
+        background-color: #0a17d1;
+      }
+    .gameboard select{
+        font-family: "VT323", monospace;
+        font-size: 40px;
+        margin-top: 5px;
+        height: 50px;
+        width: 280px;
+        color: black;
+        border: 4px solid black;
+        background-color: #0a17d1;
+      }
+      .startbtn{
+        margin:0 0 30px 250px;
+        font-family: "VT323", monospace;
+        font-size: 20px;
+        height: 30px;
+        width: 100px;
+        color: #3f3f3f;
+        border: 4px solid rgb(82, 82, 82);
+        background-color: #d36262;
+        border-radius: 12px;
+      }
+      .startbtn a{
+        color: white;
+        text-decoration: none;
+      }
+      .displayschmetterling{
+        height: 60px;
+        width: 60px;
+        background-image: url(img/Schmetterlingorange.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+      }
+      .displayschmetterlingblau{
+        height: 60px;
+        width: 60px;
+        background-image: url(img/Schmetterlingblau.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+      }
+      .displayschmetterlinglila{
+        height: 60px;
+        width: 60px;
+        background-image: url(img/Schmetterlinglila.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+      }
+      .legende{
+        font-family: "VT323", monospace;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 20px;
+        height: 70px;
+        width: 240px;
+        border: 5px solid black;
+        padding: 20px;
+        background-color: #0a17d1;
+      }
+      .schmetterlingcard p{
+        margin: 0;
+        font-size: 27px;
+        text-align: center;
+      }
+      .schmetterling {
+        position: absolute;
+        height: 40px;
+        width: 40px;
+        background-image: url(img/Schmetterlingorange.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        top: 0px;
+        left: 0px;
+      }
+      .schmetterlingblau {
+        position: absolute;
+        height: 40px;
+        width: 40px;
+        background-image: url(img/Schmetterlingblau.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        top: 0px;
+        left: 0px;
+      }
+      .schmetterlinglila {
+        position: absolute;
+        height: 40px;
+        width: 40px;
+        background-image: url(img/Schmetterlinglila.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        top: 0px;
+        left: 0px;
+      }
+      .player {
+        position: absolute;
+        top: 400px;
+        left: 160px;
+        height: 40px;
+        width: 40px;
+        background-image: url(img/hero-idle-side.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+      }
+
+      .blume {
+        position: absolute;
+        height: 40px;
+        width: 40px;
+        background-image: url(img/Busch.png);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+        top: 0px;
+        left: 0px;
+      }
+      .finalpunkte{
+        font-family: "VT323", monospace;
+        font-size: 40px;
+        color: white;
+        }
+      
+        .scoreborder{
+          padding: 20px;
+          background-color: black;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+</style>
+<body>
+    <div class="screenarea">
+        <div id="gameboard" class="gameboard beforegame">
+            <div class="logo"></div>
+            <input id="nameinput" type="text" placeholder="NAME">
+            <select name="Bushes" id="bushselector">
+              <option value="10">10 Büsche</option>
+              <option value="20">20 Büsche</option>
+              <option value="30">30 Büsche</option>
+              <option value="40">40 Büsche</option>
+              <option value="50">50 Büsche</option>
+              <option value="60">60 Büsche</option>
+            </select>
+           
+            <select name="Bushes" id="timeselector">
+              <option value="10">10 Sek</option>
+              <option value="20">20 Sek</option>
+              <option value="30">30 Sek</option>
+              <option value="60">60 Sek</option>
+              <option value="120">120 Sek</option>
+              <option value="200">200 Sek</option>
+            </select>
+            <div class="legende">
+                <div class="schmetterlingcard">
+                  <div class="displayschmetterling"></div>
+                  <p>10PT</p>
+                </div>
+                <div class="schmetterlingcard">
+                  <div class="displayschmetterlingblau"></div>
+                  <p>50PT</p>
+                </div>
+                <div class="schmetterlingcard">
+                  <div class="displayschmetterlinglila"></div>
+                  <p>100PT</p>
+                </div>
+              </div>
+        </div>
+    </div>
+    <div class="dataarea">
+        <p>Name: <span id="name"></span></p>
+        <p>Time: <span id="sec"></span></p>
+        <p>Score: <span id="scoreticker"></span></p>
+    </div>
+    <div class="controlarea">
+        <button onclick="startGame()" id="startbtn" class="startbtn">START</button>
+        <div class="arrows">
+            <button id="arrowup" class="arrowup"></button>
+        </div>
+        <div class="arrows">
+            <button id="arrowleft" class="arrowleft"></button>
+            <button id="arrowright" class="arrowright"></button>
+        </div>
+        <div class="arrows">
+            <button id="arrowdown" class="arrowdown"></button>
+        </div>
+    </div>
+    <script>
+ let startbtn = document.getElementById('startbtn');
+ let gameboard = document.getElementById('gameboard');
+ let name = document.getElementById('name'); 
+ let nameinput = document.getElementById('nameinput');
+ let selecinput = document.getElementById('bushselector');
+ let timeselec = document.getElementById('timeselector');
+            
+function startGame(){
+
+    let bnr = parseInt(selecinput.options[selecinput.selectedIndex].value);
+    name.innerHTML = nameinput.value;
+    if(nameinput.value == ""){
+    name.innerHTML = "XXXX";
+    }
+    gameboard.innerHTML = "";
+    let player = document.createElement("div");
+    let schmetterlingliste =  [];
+    let blumenliste = [];
+    let bewegungsweite = 40;
+    let scoreticker = document.getElementById('scoreticker');
+
+    function changeBg(){
+         gameboard.style.backgroundImage = "url(img/grass2.png)";
+        }
+changeBg();
+    function createPlayer(){
+        player.classList.add("player");
+        gameboard.appendChild(player);
+        }
+
+
+    function generateBushes(){
+        for(let i = 0; i<bnr+1;i++){
+            let busch = document.createElement("div");
+            busch.classList.add("blume");
+            busch.style.top = (Math.floor(Math.random() * 11) * 40) + "px";
+            busch.style.left = (Math.floor(Math.random() * 9) * 40) + "px";
+
+            blumenliste[i] = {
+                x: busch.style.left,
+                y: busch.style.top
+            }
+            gameboard.appendChild(busch);
+            }
+        }
+    function generateButterflies(){
+        for(let i = 0; i < 10; i++){
+            let zufallszahlschmetterling = Math.floor(Math.random() * 3 + 1);
+            let schmetterling = document.createElement("div");
+            if(zufallszahlschmetterling == 1){
+            schmetterling.classList.add("schmetterling");
+        }
+        if(zufallszahlschmetterling == 2){
+            schmetterling.classList.add("schmetterlingblau");
+        }
+        if(zufallszahlschmetterling == 3){
+            schmetterling.classList.add("schmetterlinglila");
+        }
+    schmetterling.setAttribute("id","schmetterling"+i);
+
+        schmetterling.style.top = (Math.floor(Math.random() * 11) * 40) + "px";
+        schmetterling.style.left = (Math.floor(Math.random() * 9) * 40) + "px";
+
+        schmetterlingliste[i] = {
+            x: schmetterling.style.left,
+            y: schmetterling.style.top,
+            class: schmetterling.classList,
+            };  
+    gameboard.appendChild(schmetterling);
+        }
+    }
+    createPlayer();
+    generateBushes();
+    generateButterflies();
+    
+    let pfeiltasteoben = document.getElementById('arrowup');
+    pfeiltasteoben.addEventListener("click",playerMovementUp);
+    let pfeiltasteunten = document.getElementById('arrowdown');
+    pfeiltasteunten.addEventListener("click",playerMovementDown);
+    let pfeiltasterechts = document.getElementById('arrowright');
+    pfeiltasterechts.addEventListener("click",playerMovementRight);
+    let pfeiltastelinks = document.getElementById('arrowleft');
+    pfeiltastelinks.addEventListener("click",playerMovementLeft);
+    let kollisionunten = false;
+    let kollisionoben = false;
+    let kollisionrechts = false;
+    let kollisionlinks = false;
+
+    let pt = 0;
+    function playerMovementUp(event){
+        let x = player.offsetLeft;
+        let y = player.offsetTop;
+        kollisionunten = false;
+        for(let i = 0; i < bnr+1; i++){
+            if(blumenliste[i].x == player.style.left && 40+parseInt(blumenliste[i].y)+"px" == player.style.top){
+              kollisionunten = true;
+            }
+          }
+          if (y > 0 && kollisionunten == false) {
+            player.style.backgroundImage = "url(img/hero-idle-back.png)";
+            player.style.top = y - bewegungsweite + "px";
+          }
+        for(let i=0; i < 10; i++){
+          if(schmetterlingliste[i].x == player.style.left && schmetterlingliste[i].y == player.style.top){
+            if(schmetterlingliste[i].class == "schmetterling"){
+              pt = parseInt(scoreticker.innerHTML) + 10;
+            }
+            if(schmetterlingliste[i].class == "schmetterlingblau"){
+              pt = parseInt(scoreticker.innerHTML) + 50;
+            }
+            if(schmetterlingliste[i].class == "schmetterlinglila"){
+              pt = parseInt(scoreticker.innerHTML) + 100;
+            }
+            scoreticker.innerHTML = pt;   
+            let aktuellerschmetterling = document.getElementById("schmetterling"+i);
+             aktuellerschmetterling.style.top = Math.floor(Math.random() * 16 + 1) * 40 + 0 + "px";
+             aktuellerschmetterling.style.left = Math.floor(Math.random() * 36 + 1) * 40 + 20 + "px";
+              schmetterlingliste[i].x = aktuellerschmetterling.style.left;
+              schmetterlingliste[i].y = aktuellerschmetterling.style.top;
+              schmetterlingliste[i].class = aktuellerschmetterling.classList;
+         }
+      }
+    }
+
+    function playerMovementDown(event){
+        let x = player.offsetLeft;
+        let y = player.offsetTop;
+        kollisionoben = false;
+        for(let i = 0; i < bnr+1;i++){
+            if(blumenliste[i].x == player.style.left && blumenliste[i].y == 40 + parseInt(player.style.top)+"px"){
+              kollisionoben = true;
+            }
+          }
+          if (y < 400 && kollisionoben == false) {
+            player.style.backgroundImage = "url(img/hero-idle-front.png)";
+            player.style.top = y + bewegungsweite + "px";
+          }
+        
+        for(let i=0; i < 10; i++){
+          if(schmetterlingliste[i].x == player.style.left && schmetterlingliste[i].y == player.style.top){
+            if(schmetterlingliste[i].class == "schmetterling"){
+              pt = parseInt(scoreticker.innerHTML) + 10;
+            }
+            if(schmetterlingliste[i].class == "schmetterlingblau"){
+              pt = parseInt(scoreticker.innerHTML) + 50;
+            }
+            if(schmetterlingliste[i].class == "schmetterlinglila"){
+              pt = parseInt(scoreticker.innerHTML) + 100;
+            }
+            scoreticker.innerHTML = pt;   
+            let aktuellerschmetterling = document.getElementById("schmetterling"+i);
+             aktuellerschmetterling.style.top = Math.floor(Math.random() * 16 + 1) * 40 + 0 + "px";
+             aktuellerschmetterling.style.left = Math.floor(Math.random() * 36 + 1) * 40 + 20 + "px";
+              schmetterlingliste[i].x = aktuellerschmetterling.style.left;
+              schmetterlingliste[i].y = aktuellerschmetterling.style.top;
+              schmetterlingliste[i].class = aktuellerschmetterling.classList;
+         }
+      }
+    }
+
+    function playerMovementRight(event){
+        let x = player.offsetLeft;
+        let y = player.offsetTop;
+        kollisionlinks = false;
+          for(let i = 0; i < bnr+1;i++){
+            if(blumenliste[i].x  == 40 + parseInt(player.style.left)+"px" && blumenliste[i].y == player.style.top){
+              kollisionlinks = true;
+            }
+          }
+
+          if (x < 320 && kollisionlinks == false) {
+            player.style.backgroundImage = "url(img/hero-idle-side.png)";
+            player.style.left = x + bewegungsweite + "px";
+          }
+        
+        for(let i=0; i < 10; i++){
+          if(schmetterlingliste[i].x == player.style.left && schmetterlingliste[i].y == player.style.top){
+            if(schmetterlingliste[i].class == "schmetterling"){
+              pt = parseInt(scoreticker.innerHTML) + 10;
+            }
+            if(schmetterlingliste[i].class == "schmetterlingblau"){
+              pt = parseInt(scoreticker.innerHTML) + 50;
+            }
+            if(schmetterlingliste[i].class == "schmetterlinglila"){
+              pt = parseInt(scoreticker.innerHTML) + 100;
+            }
+            scoreticker.innerHTML = pt;   
+            let aktuellerschmetterling = document.getElementById("schmetterling"+i);
+             aktuellerschmetterling.style.top = Math.floor(Math.random() * 16 + 1) * 40 + 0 + "px";
+             aktuellerschmetterling.style.left = Math.floor(Math.random() * 36 + 1) * 40 + 20 + "px";
+              schmetterlingliste[i].x = aktuellerschmetterling.style.left;
+              schmetterlingliste[i].y = aktuellerschmetterling.style.top;
+              schmetterlingliste[i].class = aktuellerschmetterling.classList;
+         }
+      }
+    }
+
+    function playerMovementLeft(event){
+        let x = player.offsetLeft;
+        let y = player.offsetTop;
+        kollisionrechts = false;
+
+          for(let i = 0; i < bnr+1;i++){
+            if(40+ parseInt(blumenliste[i].x)+"px" == player.style.left && blumenliste[i].y == player.style.top){
+              kollisionrechts = true;
+            }
+          }
+
+          if (x > 0 && kollisionrechts == false) {
+            player.style.backgroundImage = "url(img/hero-idle-side-mirror.png)";
+            player.style.left = x - bewegungsweite + "px";
+          }  
+        for(let i=0; i < 10; i++){
+          if(schmetterlingliste[i].x == player.style.left && schmetterlingliste[i].y == player.style.top){
+            if(schmetterlingliste[i].class == "schmetterling"){
+              pt = parseInt(scoreticker.innerHTML) + 10;
+            }
+            if(schmetterlingliste[i].class == "schmetterlingblau"){
+              pt = parseInt(scoreticker.innerHTML) + 50;
+            }
+            if(schmetterlingliste[i].class == "schmetterlinglila"){
+              pt = parseInt(scoreticker.innerHTML) + 100;
+            }
+            scoreticker.innerHTML = pt;   
+            let aktuellerschmetterling = document.getElementById("schmetterling"+i);
+             aktuellerschmetterling.style.top = Math.floor(Math.random() * 16 + 1) * 40 + 0 + "px";
+             aktuellerschmetterling.style.left = Math.floor(Math.random() * 36 + 1) * 40 + 20 + "px";
+              schmetterlingliste[i].x = aktuellerschmetterling.style.left;
+              schmetterlingliste[i].y = aktuellerschmetterling.style.top;
+              schmetterlingliste[i].class = aktuellerschmetterling.classList;
+        }
+    }
+}
+
+    let counter = 0;
+     function moveButterflies(){
+      let aktuellerschmetterling = document.getElementById('schmetterling'+counter);
+      let randomnumber = Math.floor(Math.random() * 4 + 1);
+      if(randomnumber == 1 && counter < 10){
+        aktuellerschmetterling.style.top = parseInt(schmetterlingliste[counter].y) - bewegungsweite  +"px";
+        schmetterlingliste[counter].y = aktuellerschmetterling.style.top
+        if(parseInt(aktuellerschmetterling.style.top) <= 0){
+          aktuellerschmetterling.style.top = 0 +"px"
+          schmetterlingliste[counter].y = 0+"px";
+        }
+      }
+        if(randomnumber == 2 && counter < 10){
+        aktuellerschmetterling.style.top = parseInt(schmetterlingliste[counter].y) + bewegungsweite  +"px";
+        schmetterlingliste[counter].y = aktuellerschmetterling.style.top
+        if(parseInt(aktuellerschmetterling.style.top) >= 400){
+          aktuellerschmetterling.style.top = 400 +"px"
+          schmetterlingliste[counter].y = 400 +"px";
+        }
+      }
+       if(randomnumber == 3 && counter < 10){
+        aktuellerschmetterling.style.left = parseInt(schmetterlingliste[counter].x) + bewegungsweite  +"px";
+        schmetterlingliste[counter].x = aktuellerschmetterling.style.left
+        if(parseInt(aktuellerschmetterling.style.left)  >= 320){
+          aktuellerschmetterling.style.left = 320 +"px"
+          schmetterlingliste[counter].x = 320+"px";
+        }
+      }
+        if(randomnumber == 4 && counter < 10){
+        aktuellerschmetterling.style.left = parseInt(schmetterlingliste[counter].x) - bewegungsweite  +"px";
+        schmetterlingliste[counter].x = aktuellerschmetterling.style.left
+        if(parseInt(aktuellerschmetterling.style.left) <= 0){
+          aktuellerschmetterling.style.left = 0 +"px"
+          schmetterlingliste[counter].x = 0+"px";
+        }
+      }
+      counter++
+      if(counter == 10){
+        counter = 0;
+      }
+     }
+
+     function scoreboard(){
+      gameboard.innerHTML="";
+      gameboard.style.backgroundImage = "url(img/StarSky.gif)";
+      gameboard.classList.add("playgroundbeforestart");
+      let scoreboardrahmen = document.createElement("div")
+      scoreboardrahmen.classList.add("scoreborder");
+      gameboard.appendChild(scoreboardrahmen);
+      let scoreboardheading = document.createElement("p");
+      scoreboardheading.classList.add("finalpunkte");
+      scoreboardheading.innerHTML = "~SCOREBOARD~";
+      let finalscore = document.createElement("p");
+      finalscore.classList.add("finalpunkte");
+      let punktestand = document.getElementById("scoreticker").innerHTML;
+      let playername = document.getElementById("name").innerHTML;
+      finalscore.innerHTML = playername + " ... "+ punktestand + " PUNKTE";
+      scoreboardrahmen.appendChild(scoreboardheading);
+      scoreboardrahmen.appendChild(finalscore);
+     }
+
+
+     let s = parseInt(timeselec.options[timeselec.selectedIndex].value);
+     function Timer() {
+     document.getElementById("sec").innerHTML = s;
+     s--;
+    }
+    setInterval(function(){
+      moveButterflies();
+     },100);
+
+         const intid = setInterval(function(){
+      Timer();
+      if(s == -1){
+        clearInterval(intid);
+        scoreboard();
+      }
+     },1000)
+}
+
+    </script>
+</body>
+</html>
