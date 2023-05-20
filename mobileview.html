@@ -20,14 +20,14 @@
     }
     .gameboard{
         margin-top: 10px;
-        height: 450px;
-        width: 370px;
+        height: 360px;
+        width: 400px;
         background-image: url(img/StarSky.gif);
     }
     .controlarea{
         background-color: grey;
         width: 100%;
-        height: 41vh;
+        height: 250px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -53,34 +53,34 @@
         align-items: center;
     }
     .arrowup{
-        height: 75px;
-        width: 75px;
+        height: 60px;
+        width: 60px;
         background-image: url(imgmobile/Pfeiltasteoben.jpg);
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
     }
     .arrowdown{
-        height: 75px;
-        width: 75px;
+        height: 60px;
+        width: 60px;
         background-image: url(imgmobile/Pfeiltasteunten.jpg);
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
     }
     .arrowleft{
-        margin-right: 36px;
-        height: 75px;
-        width: 75px;
+        margin-right: 30px;
+        height: 60px;
+        width: 60px;
         background-image: url(imgmobile/Pfeiltastelinks.jpg);
         background-position: center;
         background-size: cover;
         background-repeat: no-repeat;
     }
     .arrowright{
-        margin-left: 36px;
-        height: 75px;
-        width: 75px;
+        margin-left: 30px;
+        height: 60px;
+        width: 60px;
         background-image: url(imgmobile/Pfeiltasterechts.jpg);
         background-position: center;
         background-size: cover;
@@ -121,7 +121,7 @@
         background-color: #0a17d1;
       }
       .startbtn{
-        margin:0 0 30px 250px;
+        margin:0 0 10px 220px;
         font-family: "VT323", monospace;
         font-size: 20px;
         height: 30px;
@@ -211,7 +211,7 @@
       }
       .player {
         position: absolute;
-        top: 400px;
+        top: 320px;
         left: 160px;
         height: 40px;
         width: 40px;
@@ -269,20 +269,6 @@
               <option value="120">120 Sek</option>
               <option value="200">200 Sek</option>
             </select>
-            <div class="legende">
-                <div class="schmetterlingcard">
-                  <div class="displayschmetterling"></div>
-                  <p>10PT</p>
-                </div>
-                <div class="schmetterlingcard">
-                  <div class="displayschmetterlingblau"></div>
-                  <p>50PT</p>
-                </div>
-                <div class="schmetterlingcard">
-                  <div class="displayschmetterlinglila"></div>
-                  <p>100PT</p>
-                </div>
-              </div>
         </div>
     </div>
     <div class="dataarea">
@@ -339,8 +325,8 @@ changeBg();
         for(let i = 0; i<bnr+1;i++){
             let busch = document.createElement("div");
             busch.classList.add("blume");
-            busch.style.top = (Math.floor(Math.random() * 11) * 40) + "px";
-            busch.style.left = (Math.floor(Math.random() * 9) * 40) + "px";
+            busch.style.top = (Math.floor(Math.random() * 9) * 40) + "px";
+            busch.style.left = (Math.floor(Math.random() * 10) * 40) + "px";
 
             blumenliste[i] = {
                 x: busch.style.left,
@@ -364,8 +350,8 @@ changeBg();
         }
     schmetterling.setAttribute("id","schmetterling"+i);
 
-        schmetterling.style.top = (Math.floor(Math.random() * 11) * 40) + "px";
-        schmetterling.style.left = (Math.floor(Math.random() * 9) * 40) + "px";
+        schmetterling.style.top = (Math.floor(Math.random() * 9) * 40) + "px";
+        schmetterling.style.left =  (Math.floor(Math.random() * 10) * 40) + "px";
 
         schmetterlingliste[i] = {
             x: schmetterling.style.left,
@@ -437,7 +423,7 @@ changeBg();
               kollisionoben = true;
             }
           }
-          if (y < 400 && kollisionoben == false) {
+          if (y < 360 && kollisionoben == false) {
             player.style.backgroundImage = "url(img/hero-idle-front.png)";
             player.style.top = y + bewegungsweite + "px";
           }
@@ -553,17 +539,17 @@ changeBg();
         if(randomnumber == 2 && counter < 10){
         aktuellerschmetterling.style.top = parseInt(schmetterlingliste[counter].y) + bewegungsweite  +"px";
         schmetterlingliste[counter].y = aktuellerschmetterling.style.top
-        if(parseInt(aktuellerschmetterling.style.top) >= 400){
-          aktuellerschmetterling.style.top = 400 +"px"
-          schmetterlingliste[counter].y = 400 +"px";
+        if(parseInt(aktuellerschmetterling.style.top) >= 320){
+          aktuellerschmetterling.style.top = 320 +"px"
+          schmetterlingliste[counter].y = 320 +"px";
         }
       }
        if(randomnumber == 3 && counter < 10){
         aktuellerschmetterling.style.left = parseInt(schmetterlingliste[counter].x) + bewegungsweite  +"px";
         schmetterlingliste[counter].x = aktuellerschmetterling.style.left
-        if(parseInt(aktuellerschmetterling.style.left)  >= 320){
-          aktuellerschmetterling.style.left = 320 +"px"
-          schmetterlingliste[counter].x = 320+"px";
+        if(parseInt(aktuellerschmetterling.style.left)  >= 360){
+          aktuellerschmetterling.style.left = 360 +"px"
+          schmetterlingliste[counter].x = 360+"px";
         }
       }
         if(randomnumber == 4 && counter < 10){
