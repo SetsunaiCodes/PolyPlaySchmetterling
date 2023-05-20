@@ -263,7 +263,7 @@
         <script>
             var screenWidth = screen.width;
             var screenHeight = screen.height;
-            if(screenWidth < 450 && screenHeight < 900){
+            if(screenWidth < 550 && screenHeight < 1000){
               window.location.href = "mobileview.html";
             }
             //Erster Initialisierungsbereich
@@ -478,9 +478,9 @@
              //Zufälliges Platzieren nach selbem Prinzip, wie sonst auch
              aktuellerschmetterling.style.top = Math.floor(Math.random() * 16 + 1) * 40 + 0 + "px";
              aktuellerschmetterling.style.left = Math.floor(Math.random() * 36 + 1) * 40 + 20 + "px";
-              schmetterlingliste[i].x = aktuellerschmetterling.style.left;
-              schmetterlingliste[i].y = aktuellerschmetterling.style.top;
-              schmetterlingliste[i].class = aktuellerschmetterling.classList;
+             schmetterlingliste[i].x = aktuellerschmetterling.style.left;
+             schmetterlingliste[i].y = aktuellerschmetterling.style.top;
+             schmetterlingliste[i].class = aktuellerschmetterling.classList;
       }
       }
      }
